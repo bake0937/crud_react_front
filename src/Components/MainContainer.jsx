@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import ProductsContainer from './ProductsContainer'
+import FormContainer from './FormContainer'
 
 class MainContainer extends React.Component {
   constructor(props) {
@@ -9,7 +10,6 @@ class MainContainer extends React.Component {
       products: []
     }
   }
-
 
   componentDidMount() {
     axios.get('http://localhost:3001/products')
@@ -25,6 +25,7 @@ class MainContainer extends React.Component {
   render() {
     return (
       <div className='app-main'>
+        <FormContainer />
         <ProductsContainer productData={this.state.products} />
       </div>
     );
