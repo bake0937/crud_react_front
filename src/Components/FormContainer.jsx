@@ -9,6 +9,10 @@ class FormContainer extends React.Component {
     }
   }
 
+  onChangetext(e) {
+    this.setState({ product: e.target.value })
+  }
+
   render() {
     return (
       <div>
