@@ -17,7 +17,6 @@ class MainContainer extends React.Component {
   componentDidMount() {
     axios.get('http://localhost:3001/products')
       .then((results) => {
-        console.log(results)
         this.setState({ products: results.data })
       })
       .catch((data) => {
@@ -49,11 +48,23 @@ class MainContainer extends React.Component {
       })
   }
 
+  updateProduct = (id, product) => {
+    axios.patch(`http://localhost:3001/products/${id}`, { product: product })
+      .then((response) => {
+        const productIndex = this.state.products.findIndex(x => x.id === id)
+        const products = update(this.state.products, { [productIndex]: { $set: response.data } })
+        this.setState({ products: products })
+      })
+      .catch((data) => {
+        console.log(data)
+      })
+  }
+
   render() {
     return (
       <div className='app-main'>
         <FormContainer hendleAdd={this.hendleAdd} createProduct={this.createProduct} />
-        <ProductsContainer productData={this.state.products} deleateProduct={this.deleateProduct} />
+        <ProductsContainer productData={this.state.products} deleateProduct={this.deleateProduct} updateProduct={this.updateProduct} />
       </div>
     );
   }
